@@ -1,0 +1,9 @@
+{
+	"name" : "Let´s Comment",
+	"description" : "Social Analytics",
+	"preview": "LetsComment.png",
+	"type" : "visualization",
+	"icon" : "list",
+	"version": "3.0",
+	"author": "Ivan Felipe ife@qlik.com QlikTech Iberia,s.l."
+}

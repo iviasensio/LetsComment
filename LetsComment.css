@@ -1,0 +1,551 @@
+.LetsComment-tooltip-sheet {
+    position: absolute;
+    /*top: 15%;*/
+    right: 90%;
+    padding: 10px 8px;
+    will-change: top, left;
+    /*-webkit-box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2), 0 40px 77px 0 rgba(0, 0, 0, 0.22);
+    -moz-box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2), 0 40px 77px 0 rgba(0, 0, 0, 0.22);
+    box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2), 0 40px 77px 0 rgba(0, 0, 0, 0.22);*/
+    border-color : #595959;
+}
+.LetsComment-tooltip-sheet:hover {
+    /*--background-color: #2bbbad;*/
+    /*background-color: #6bb33f; /* hover color = qlik green */
+    border-radius: #404040;
+}
+.LetsComment-tooltip-sheet div {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+.LetsComment-tooltip-comments {
+    position: absolute;
+    text-align: center;
+    top: 2%;
+    margin-left: 70%;
+}
+.top-right {
+    position: absolute;
+    top: 6px;    
+    color: white;
+}
+
+.LetsComment-tooltip {
+	position: absolute;
+	top: 15%;
+	right: 90%;
+	padding: 10px 8px;
+	will-change: top, left;
+	/*-webkit-box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2), 0 40px 77px 0 rgba(0, 0, 0, 0.22);
+	-moz-box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2), 0 40px 77px 0 rgba(0, 0, 0, 0.22);
+	box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2), 0 40px 77px 0 rgba(0, 0, 0, 0.22);*/
+    border-color : #595959;
+}
+.LetsComment-tooltip:hover {
+    /*--background-color: #2bbbad;*/
+    /*background-color: #6bb33f; /* hover color = qlik green */
+    border-radius: #404040;
+}
+.LetsComment-tooltip div {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+.LetsComment-btn {
+	position: absolute;
+	bottom: 25px;
+	right: 3px;
+	-webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+	-moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+	border: none;
+	display: inline-block;
+	text-align: center;
+	outline: 0;
+	-webkit-tap-highlight-color: transparent;
+	color: #595959;
+	/*background-color: gray;*/
+    border-color : #595959;
+    border-width: 2px;
+    border-style: solid;
+	border-radius: 50%;
+	-webkit-transition: .2s ease-out;
+	-moz-transition: .2s ease-out;
+	-o-transition: .2s ease-out;
+	-ms-transition: .2s ease-out;
+	transition: .2s ease-out;
+	width: 25px;
+	height: 25px;
+	line-height: 25px;
+	padding: 0;
+	cursor: pointer;
+}
+
+.LetsComment-btn:hover {
+	/*--background-color: #2bbbad;*/
+	/*background-color: #6bb33f; /* hover color = qlik green */
+    border-radius: #404040;
+    color: #404040;
+}
+.LetsComment-btn i{
+	line-height: 25px;
+	font-size: 21px;
+}
+
+.LetsComment-btn.fab {
+	position: fixed;
+	bottom: 5px;
+	right: 5px;
+	z-index: 1;
+	width: 55.5px;
+	height: 55.5px;
+	line-height: 55.5px;
+	padding: 0;
+	border-radius: 50%;
+	transition: .3s;
+}
+
+.LetsComment-btn.fab:hover {
+	-webkit-box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+	-moz-box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+	box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+}
+.LetsComment-btn.fab i{
+	line-height: 55.5px;
+	font-size: 2.2rem;
+}
+/**/
+.LetsComment-btn-comment {
+    position: absolute;
+    bottom: 25px;
+    right: 3px;    
+    border: none;
+    display: inline-block;
+    text-align: center;
+    outline: 0;
+    -webkit-tap-highlight-color: transparent;
+    color: #595959;
+    -webkit-transition: .2s ease-out;
+    -moz-transition: .2s ease-out;
+    -o-transition: .2s ease-out;
+    -ms-transition: .2s ease-out;
+    transition: .2s ease-out;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    padding: 0;
+    cursor: pointer;
+}
+/**/
+.LetsComment-btn-sheet {
+    position: absolute;
+    bottom: 25px;
+    right: 3px;
+    border: none;
+    display: inline-block;
+    text-align: center;
+    outline: 0;
+    -webkit-tap-highlight-color: transparent;
+    color: #595959;
+    /*background-color: gray;*/
+    border-radius: 50%;
+    -webkit-transition: .2s ease-out;
+    -moz-transition: .2s ease-out;
+    -o-transition: .2s ease-out;
+    -ms-transition: .2s ease-out;
+    transition: .2s ease-out;
+    width: 25px;
+    height: 25px;
+    padding: 0;
+    cursor: pointer;
+}
+
+.LetsComment-btn-sheet:hover {
+    /*--background-color: #2bbbad;*/
+    /*background-color: #6bb33f; /* hover color = qlik green */
+    border-radius: #404040;
+    color: #404040;
+}
+.LetsComment-btn-sheet i{
+    line-height: 25px;
+    font-size: 21px;
+}
+
+.LetsComment-btn-sheet.fab {
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+    z-index: 1;
+    width: 55.5px;
+    height: 55.5px;
+    line-height: 55.5px;
+    padding: 0;
+    border-radius: 50%;
+    transition: .3s;
+}
+
+.LetsComment-btn-sheet.fab:hover {
+    -webkit-box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+}
+.LetsComment-btn-sheet.fab i{
+    line-height: 55.5px;
+    font-size: 2.2rem;
+}
+/**/
+.LetsComment-modalBase {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 150px; /* Location of the box */
+    left: 15%;
+    top: 0;
+    width: 500px; /* Full width */
+    height: 600px; /* Full height */  
+}
+.LetsComment-base-content{
+    border-color: #808080;
+    box-shadow: 0 2px 25px rgba(0, 0, 0, 0.4);
+    /*height:560px;*/
+    /*resize: both;*/
+    /*overflow: auto;*/
+}
+.LetsComment-modal-header {
+    padding: 2px 16px;
+    height: 64px;
+    border-radius: 3px;
+    background-color: #FBFBFB;
+    font-family: "QlikView Sans";
+    color:#595959;
+    font-size: 18px;
+    font-weight: bold;
+    vertical-align: middle;
+    border-bottom: 1px solid #e5e5e5;
+}
+.LetsComment-modal-footer {
+    padding: 2px 16px;
+    height: 54px;
+    border-radius: 3px;
+    background-color: #FBFBFB;
+    font-family: "QlikView Sans";
+    color:#595959;
+    font-size: 18px;
+    font-weight: bold;
+    vertical-align: middle;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.icons{
+    height:25px;
+    padding-left:10px;
+    cursor:pointer;
+}
+.icons-s{
+    height:20px;
+    padding-left:130px;
+    cursor:pointer;
+}
+.icons-comment{
+    height:45px;
+    padding-left:10px;    
+}
+.del {
+    position: absolute;
+    height: 20px;
+    /*padding-left: 180px;*/
+    cursor: pointer;
+    /*display: none;*/
+}
+.del:hover{
+    filter: brightness(0.25);
+}
+.reply {
+    position: relative;
+    height: 20px;
+    padding-right: 4px;
+    cursor: pointer;
+    float: right;
+}
+.reply:hover{
+    filter: brightness(0.25);
+}
+.linkSel{
+    color:blue;
+    cursor:pointer;   
+}
+.close {
+    float: right;
+    /*color: white;    
+    font-size: 15px;
+    font-weight: bold;*/
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.LetsComment-modal-body {
+    padding: 30px 16px;
+    /*max-height: calc(100vh - 150px);*/
+    height:550px;
+}
+/*Bullets styles*/
+.LetsComment-bullet{
+    margin-top:20px;
+}
+/*Left - blue*/
+.LetsComment-bullet-blue-l{
+    position:relative;
+    font-size:15px;
+    border: 1px solid #ccc!important;
+    padding-left:20px;
+    border-radius: 16px;
+    padding-top:5px;
+    padding-bottom:10px;
+    max-width:375px;
+    background: #eaf1fb;
+}
+
+.LetsComment-bullet-blue-l:before {
+    content: "";
+    position: absolute;
+    right: -4%;
+    top: 56%;
+    width: 10px;
+    height: 10px;
+    border: 1px solid #ccc!important;
+    border-radius: 30px;
+    background: #eaf1fb;
+}
+.LetsComment-bullet-blue-l:after {
+    content: "";
+    position: absolute;
+    right: -7%;
+    top: 77%;
+    width: 6px;
+    height: 6px;
+    border: 1px solid #ccc!important;
+    border-radius: 30px;
+    background: #eaf1fb;
+}
+/*Left - pink*/
+.LetsComment-bullet-pink-l{
+    position:relative;
+    font-size:15px;
+    border: 1px solid #ccc!important;
+    padding-left:20px;
+    border-radius: 16px;
+    padding-top:5px;
+    padding-bottom:10px;
+    max-width:375px;
+    background: #ffcce6;
+}
+
+.LetsComment-bullet-pink-l:before {
+    content: "";
+    position: absolute;
+    right: -4%;
+    top: 56%;
+    width: 10px;
+    height: 10px;
+    border: 1px solid #ccc!important;
+    border-radius: 30px;
+    background: #ffcce6;
+}
+.LetsComment-bullet-pink-l:after {
+    content: "";
+    position: absolute;
+    right: -7%;
+    top: 77%;
+    width: 6px;
+    height: 6px;
+    border: 1px solid #ccc!important;
+    border-radius: 30px;
+    background: #ffcce6;
+}
+
+/*right - green*/
+.LetsComment-bullet-green-r{
+    position:relative;
+    font-size:15px;
+    border: 1px solid #ccc!important;
+    padding-left:20px;
+    border-radius: 16px;
+    padding-top:5px;
+    padding-bottom:10px;
+    max-width:375px;
+    background: #e6ffe6;
+    margin-left: 50px;
+}
+
+.LetsComment-bullet-green-r:before {
+    content: "";
+    position: absolute;
+    right: 101%;
+    top: 56%;
+    width: 10px;
+    height: 10px;
+    border: 1px solid #ccc!important;
+    border-radius: 30px;
+    background: #e6ffe6;
+}
+.LetsComment-bullet-green-r:after {
+    content: "";
+    position: absolute;
+    right: 105%;
+    top: 77%;
+    width: 6px;
+    height: 6px;
+    border: 1px solid #ccc!important;
+    border-radius: 30px;
+    background: #e6ffe6;
+}
+/*right - pink*/
+.LetsComment-bullet-pink-r{
+    position:relative;
+    font-size:15px;
+    border: 1px solid #ccc!important;
+    padding-left:20px;
+    border-radius: 16px;
+    padding-top:5px;
+    padding-bottom:10px;
+    max-width:375px;
+    background: #ffcce6;
+    margin-left: 50px;
+}
+
+.LetsComment-bullet-pink-r:before {
+    content: "";
+    position: absolute;
+    right: 101%;
+    top: 56%;
+    width: 10px;
+    height: 10px;
+    border: 1px solid #ccc!important;
+    border-radius: 30px;
+    background: #ffcce6;
+}
+.LetsComment-bullet-pink-r:after {
+    content: "";
+    position: absolute;
+    right: 105%;
+    top: 77%;
+    width: 6px;
+    height: 6px;
+    border: 1px solid #ccc!important;
+    border-radius: 30px;
+    background: #ffcce6;
+}
+/*right - yellow*/
+.LetsComment-bullet-yellow-r{
+    position:relative;
+    font-size:15px;
+    border: 1px solid #ccc!important;
+    padding-left:20px;
+    border-radius: 16px;
+    padding-top:5px;
+    padding-bottom:10px;
+    max-width:375px;
+    background: #ffffe6;
+    margin-left: 50px;
+}
+
+.LetsComment-bullet-yellow-r:before {
+    content: "";
+    position: absolute;
+    right: 101%;
+    top: 56%;
+    width: 10px;
+    height: 10px;
+    border: 1px solid #ccc!important;
+    border-radius: 30px;
+    background: #ffffe6;
+}
+.LetsComment-bullet-yellow-r:after {
+    content: "";
+    position: absolute;
+    right: 105%;
+    top: 77%;
+    width: 6px;
+    height: 6px;
+    border: 1px solid #ccc!important;
+    border-radius: 30px;
+    background: #ffffe6;
+}
+/*End bullet styles*/
+.modalPrivate {
+    display: none;
+    position: absolute; 
+    z-index: 5; 
+    padding-top: 219px; 
+    /*left: 6%;*/
+    top: 0;
+    width: 500px; 
+    /*height: 240px; */
+}
+.modalPrivate-content{
+    background:white;
+    /*border-radius: 30px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: white;
+    opacity: 0.9;*/
+}
+.modalPrivate-form{
+    padding-left: 25px;
+    padding-top: 25px;
+    font-size: 15px;
+    /*font-weight: bold;*/
+}
+.modalPrivate-body{
+    overflow:hidden;
+    height:609px;
+    border-bottom: 1px solid #e5e5e5;
+}
+.modalPrivate-box{
+    width:200;
+    height: 100px;
+}
+.modalPrivate-header {
+    padding: 2px 16px;
+    height: 22px;
+    border-radius: 3px;
+    background-color: #FBFBFB;
+    font-family: "QlikView Sans";
+    color:#595959;
+    font-size: 14px;
+    font-weight: bold;
+    vertical-align: middle;
+    border-bottom: 1px solid #e5e5e5;
+}
+.modalPrivate-footer {
+    padding: 2px 16px;
+    height: 54px;
+    border-radius: 3px;
+    background-color: #FBFBFB;
+    font-family: "QlikView Sans";
+    color:#595959;
+    font-size: 18px;
+    font-weight: bold;
+    vertical-align: middle;
+    border-bottom: 1px solid #e5e5e5;
+}
+.modalSearch-form{
+    font-size:13px;
+    font-weight: normal;
+}
+
+
+.replyDiv{
+    position: absolute;
+    padding-left: 73px;
+    width:300px;
+    margin-top: 10px;
+}
