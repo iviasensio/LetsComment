@@ -4,7 +4,7 @@ var config = {
 	isSecure: window.location.protocol === "https:"
 };
 
-var arrayValidCharts =  ["table", "pivot-table", "barchart","boxplot","combochart","distributionplot","gauge","piechart","scatterplot","treemap","histogram","linechart","kpi","waterfallchart"];
+var arrayValidCharts =  ["map","table", "pivot-table", "barchart","boxplot","combochart","distributionplot","gauge","piechart","scatterplot","treemap","histogram","linechart","kpi","waterfallchart"];
 var currentUser;
 var onlyUser;
 var oldFontSize;
