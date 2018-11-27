@@ -542,6 +542,7 @@ define( ["jquery",
 											receiv = vUsersTxt;													
 										}else{
 											alert('Please select a valid set of users')
+											return;
 										}
 									}
 										
@@ -702,7 +703,7 @@ define( ["jquery",
 									favorites.push( myObj );
 									
 							  	});
-							  	console.log(favorites)
+							  	
 							  	var theFocus = document.getElementById("TypeComment");
 								theFocus.focus();
 							}
@@ -717,7 +718,8 @@ define( ["jquery",
 									comments = await writeNewComment(milliseconds, currentUser, theDivM, like, vpublic, vusers);
 									var theSel = document.getElementById("currentSel");						
 									theSel.innerHTML = '';
-									document.getElementById("TypeComment").value = '';									
+									document.getElementById("TypeComment").value = '';
+									//currentSelections = '';							
 								}
 							}
 							
