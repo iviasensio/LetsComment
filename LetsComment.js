@@ -46,6 +46,7 @@ define( ["jquery",
 		 "css!./LetsComment.css",
 		 'firebase',
 		 './config'
+		 //'text!./dialogTemplate.html'
 		 ],
 	
 	function (jquery,qlik,cssContent,firebase,configfile) {
@@ -504,8 +505,18 @@ define( ["jquery",
 									document.getElementById("specificPeople").value = '';
 									document.getElementById("specificPeopleArea").value = '';
 								}
+								
 								vSendPriv.onclick = async function() {
-									var vUsersTxt  = document.getElementById("specificPeopleArea").value;
+									var vUsersAlert  = document.getElementById("specificPeople").value;
+									var vGroupTxt  = document.getElementById("specificGroup").value;
+									//aqui
+									/*if(vGroupTxt.length > 0 && vUsersAlert.length > 0){
+										var vCheckGrAlert = await checkGrAlert();
+										console.log(vCheckGrAlert);
+									}*/
+
+									var vUsersTxt  = document.getElementById("specificPeopleArea").value;									
+
 									if(vComboGr.selectedIndex == 0)	{	
 										vUsersTxt  = document.getElementById("specificPeople").value;
 										groupName = vUsersTxt;
@@ -594,7 +605,7 @@ define( ["jquery",
 									theFocus.focus();											
 								}	
 																	
-								async function writeNewGroup(group, users, user, time) {																					
+								async function writeNewGroup(group, users, user, time) {
 								
 									refgroup = {
 										"writeGroup": 'UserGroups' + '/' + appId + '/' + group											
@@ -677,19 +688,21 @@ define( ["jquery",
 								favorites = [{}];
 								var numv = 0;
 								result.forEach(async function(childResult) {										      	
-							      	var vfieldValues = await getCurrentValues(childResult);
+							      	var vfield = '"' + childResult + '"';
+							      	var vfieldValues = await getCurrentValues(vfield);
 							      	
 							      	item = {}
 							        item [childResult] = vfieldValues;									        
 
-							        var vfield = '"' + childResult + '"';
+							        
 							        var myObj = {
-									    [childResult] : vfieldValues											    
+									    [vfield] : vfieldValues											    
 									};
 									
 									favorites.push( myObj );
 									
 							  	});
+							  	console.log(favorites)
 							  	var theFocus = document.getElementById("TypeComment");
 								theFocus.focus();
 							}
@@ -817,9 +830,10 @@ define( ["jquery",
 							  					.then(function(snapshot) {
 							  						snapshot.child("fieldSel").forEach(function(selection){
 							  							var valor = selection.node_.children_.root_.value.value_;
-							  							var campo = selection.node_.children_.root_.key;
+							  							var campo = '[' + selection.node_.children_.root_.key + ']';
 							  							
-							  							var matchStr = "=[" + campo + "] = '" + valor.split(',').join("' or [" + campo + "] = '") + "'";
+							  							var matchStr = "=" + campo + " = '" + valor.split(',').join("' or [" + campo + "] = '") + "'";
+							  							
 							  							app.field(campo).selectMatch(matchStr)
 							  							app.field(campo).selectPossible()
 							  						})
@@ -1085,6 +1099,25 @@ define( ["jquery",
 									});
 								});
 							}
+							/*async function checkGrAlert(){
+								$(".LetsComment-modalBase").append( dialogTemplate );
+								var vModalAlertGr = document.getElementById("groupAlert");									
+								var valertGrF  = document.getElementById("alertGrF");
+								var valertGrT  = document.getElementById("alertGrT");
+								vModalAlertGr.style.display = "block";
+								console.log('en')				
+								
+								valertGrF.onclick = async function(){
+									console.log('entro F')
+									$( "#groupAlert" ).remove();
+									return (false);
+								}
+								valertGrT.onclick = async function(){
+									console.log('entro T')
+									$( "#groupAlert" ).remove();											
+									return (true);
+								}
+							}*/
 							function getCurrentValues(childResult) {										
 								
 								return new Promise(function (resolve, reject) {
