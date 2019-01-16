@@ -407,8 +407,8 @@ define( ["jquery",
 								 	'</div>' +
 									'<div class="modalPrivate-footer">' +
 									     '<span>'+									     	
-									     	'<button id = "sendPrivButton" class="lui-button confirm button ng-scope" style = "top:13px;left:390px" name="confirmButton" q-translation="Common.Apply">Aplicar</button>' +
-											'<button id = "escPrivButton" class="lui-button cancel button ng-scope" style = "top:13px;left:210px" name="cancelButton" q-translation="Common.Cancel">Cancelar</button>' +
+									     	'<button id = "sendPrivButton" class="lui-button confirm button ng-scope" style = "top:13px;left:390px" name="confirmButton" q-translation="Common.Apply">Apply</button>' +
+											'<button id = "escPrivButton" class="lui-button cancel button ng-scope" style = "top:13px;left:210px" name="cancelButton" q-translation="Common.Cancel">Cancel</button>' +
 									     '</span>' +
 									'</div>' +
 																					 	
