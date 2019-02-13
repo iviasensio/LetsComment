@@ -67,7 +67,11 @@ define( ["jquery",
 			vGroupOwner = currentUser;
 		});
 		
-		$(".qui-buttonset-right").prepend($("<button class='lui-button lui-button--toolbar iconToTheRight npsod-bar-btn lui-icon lui-icon--lightbulb'><span data-icon='toolbar-print'></span></button>"));
+		if($(".qui-buttonset-right").length == 1){
+			$(".qui-buttonset-right").prepend($("<button class='lui-button lui-button--toolbar iconToTheRight npsod-bar-btn lui-icon lui-icon--lightbulb'><span data-icon='toolbar-print'></span></button>"));
+		}else{
+			$(".qs-toolbar__right").prepend($("<button class='lui-button qs-toolbar__element iconToTheRight npsod-bar-btn lui-icon lui-icon--lightbulb'><span data-icon='toolbar-print'></span></button>"));
+		}
 		async function toggleId () {						
 			if (!initFirebase) {
 				firebase = await firebase.initializeApp(config);
@@ -407,8 +411,8 @@ define( ["jquery",
 								 	'</div>' +
 									'<div class="modalPrivate-footer">' +
 									     '<span>'+									     	
-									     	'<button id = "sendPrivButton" class="lui-button confirm button ng-scope" style = "top:13px;left:390px" name="confirmButton" q-translation="Common.Apply">Aplicar</button>' +
-											'<button id = "escPrivButton" class="lui-button cancel button ng-scope" style = "top:13px;left:210px" name="cancelButton" q-translation="Common.Cancel">Cancelar</button>' +
+									     	'<button id = "sendPrivButton" class="lui-button confirm button ng-scope" style = "top:13px;left:390px" name="confirmButton" q-translation="Common.Apply">Apply</button>' +
+											'<button id = "escPrivButton" class="lui-button cancel button ng-scope" style = "top:13px;left:210px" name="cancelButton" q-translation="Common.Cancel">Cancel</button>' +
 									     '</span>' +
 									'</div>' +
 																					 	
