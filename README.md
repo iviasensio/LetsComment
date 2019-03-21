@@ -22,9 +22,17 @@ Version 1 Issues:
 - It only works with FireBase.
 - It only works with QS Enterprise
 
-### Version 2 (current)
+
+### Version 2 (nov-18)
 
 2. Some bugs fix + likes + send messages to specific people
+
+
+### Version 3 (mar-19)
+
+3. Wrong field selections in some circumstances 
+   Responsive design
+   Wrong count about my available messages during the current month
 
 
 

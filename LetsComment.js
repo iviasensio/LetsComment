@@ -120,16 +120,17 @@ define( ["jquery",
 							
 						if(arrayValidCharts.indexOf(s.model.layout.qInfo.qType) >= 0){
 							var layout = s.layout || s.$$childHead.layout, model = s.model || s.$$childHead.model;														
-							$( el ).append('<a id = "commbut" ng-repeat="menuItem in navMenu.items" ng-if="menuItem.isVisible()" ng-class="[menuItem.cssClasses, menuItem.dynamicCssClasses()]" class="ng-scope lui-icon lui-icon--group white border flagClass" title="Lets Comment"></a>');
 							$(".qv-object").children("#commbut").remove();
+							$( el ).append('<a id = "commbut" ng-repeat="menuItem in navMenu.items" ng-if="menuItem.isVisible()" ng-class="[menuItem.cssClasses, menuItem.dynamicCssClasses()]" class="ng-scope lui-icon lui-icon--group white border flagClass" title="Lets Comment"></a>');
+							
 						}
 						
 						$( el ).find('.lui-icon--group').on('click', function () {
 							var x = document.getElementsByClassName("LetsComment-modalBase");
     						if(x.length == 0){
-								onceQlik(model)							
-    						}							
-						})							
+								onceQlik(model)
+    						}
+						})
 					} 
 				});
 				$( '.qv-object,.qv-panel-sheet' ).each( async function ( i, pl ) {
@@ -138,24 +139,21 @@ define( ["jquery",
 						if(arrayValidCharts.indexOf(s.model.layout.qInfo.qType) >= 0){
 							var dlayoutId = s.layout.qInfo.qId;				
 							$( pl ).append('<div id = "messageId" class="LetsComment-tooltip-comments"><img title = "Current month messages" class = "icons-comment" src="/Extensions/LetsComment/icons/messge.png"><div id = "totalMessages_' + dlayoutId + '" class = "top-right">0</div></div>');
-							lastTen = await read10dayComments(dlayoutId);
+							lastTen = await read10dayComments(dlayoutId);							
 						}																		
 					} 
 				});
 				async function read10dayComments(dlayoutId){
+
 					readlastten = {
-						"readlastTen": appId + '/' + dlayoutId									
-					}
-					
+						"readlastTen": appId + '/' + dlayoutId
+					}					
 					var query = firebase.database().ref(readlastten.readlastTen).orderByKey();
+					
 					query.once("value")
 					  	.then(function(snapshot) {
 					  		var hmm = 0;
-					  		if(snapshot.node_.children_.root_.key){
-						  		
-						  		var datemonth = snapshot.node_.children_.root_.key;
-						  		datemonth = datemonth.substring(0,2);
-
+					  		if(snapshot.node_.children_.root_.key){//if there are any comments in that chart						  		
 						  		var today = new Date();
 								var mm = today.getMonth()+1; //January is 0!													
 
@@ -164,7 +162,12 @@ define( ["jquery",
 								} 
 								
 							    snapshot.forEach(function(childSnapshot) {						    	
-							    	if(mm == datemonth){
+							    	var datemonth = childSnapshot.key;
+							  		var datemonth2 = datemonth;
+							  		datemonth = datemonth.substring(5,7);
+							  		datemonth2 = datemonth2.substring(0,2);
+
+							    	if(mm == datemonth || mm == datemonth2){
 							    		var receiverMatch = false;
 							      		if(childSnapshot.val().public == 'group'){
 							      			var receiverLength = childSnapshot.val().receivers;
@@ -177,12 +180,13 @@ define( ["jquery",
 										        }
 										    }									      			
 							      		}
+					
 										if(currentUser == childSnapshot.val().user || childSnapshot.val().public == 'unlocked' || receiverMatch){
 							      			hmm++;
 							      		}
 							      	}
 							    })
-							}						    
+							}					    
 						    var elemId = "totalMessages_" + dlayoutId;
 						    var rightMargin = '';
 						    var fontSize = '';
@@ -203,9 +207,11 @@ define( ["jquery",
 						    }
 						    
 						    var div10 = document.getElementById(elemId);
-						    div10.innerHTML  = hmm;
-						    div10.style.right = rightMargin;
-						    div10.style.fontSize = fontSize;
+						    if(div10){
+						    	div10.innerHTML  = hmm;
+						    	div10.style.right = rightMargin;
+						    	div10.style.fontSize = fontSize;
+						    }
 						})
 						
 				}
@@ -247,12 +253,19 @@ define( ["jquery",
 							var vModalBase = '<div id="' + modalName + '" class="LetsComment-modalBase navbar-collapse collapse twbs">' +
 							'<div class="LetsComment-base-content">' +
 							  '<div class="LetsComment-modal-header">' +
-							    '<span>' + vHeaderTitle + '</span>'+									    
-							    '<span id = "baseModalClose" class="close"> x </span>' +
+							    '<span>' + vHeaderTitle + '</span>'+
+
+							    /*<a ng-if="!item.qLocked &amp;&amp; !item.isPlaceHolder &amp;&amp; !item.qOneAndOnlyOne" ng-click="clear(item.qField, item.stateName)" class="remove ng-scope" q-title-translation="CurrentSelections.Remove" title="Borrar selección">
+									<span class="lui-clear-all lui-icon lui-icon--remove"></span>
+								</a>*/
+								'<a>' +
+									'<span id = "baseModalClose" class="lui-clear-all lui-icon lui-icon--remove close"></span>' +
+								'</a>' +
+							    /*'<span id = "baseModalClose" class="close"> x </span>' +*/
 							      	'<input id = "searchText" type="text" style = "padding-left:5px;border-radius: 10px;margin-top: 10px;width: 165px;float: right;" placeholder="Search text">' + 										
 							  '</div>' +
 							  '<div class="LetsComment-modal-body" style = "background-color: ' + vBackgroundColor + '">' +
-							    '<div id = "box_' + currentObjectId + '" class="box" style="height: 545px;overflow-y:auto">';
+							    '<div id = "box_' + currentObjectId + '" class="box">';
 																			        
 							vModalBase += '</div></div>';
 							
@@ -260,7 +273,7 @@ define( ["jquery",
 							     '<span>'+									     	
 							     	'<img id = "' + privacy + '" title = "' + groupName + '" class = "icons" src="/Extensions/LetsComment/icons/' + privacy + '.png">' + 
 							     	'<img id = "like" class = "icons" src="/Extensions/LetsComment/icons/like2.png" style = "padding-left:5px">' + 
-							     	'<input rows="1" cols="70" wrap="soft" id="TypeComment" value="" placeholder="Type your comment" style = "width:300px;font-size:17px;overflow:hidden;font-family:Arial;resize:none;margin-left:5px;border-radius:10px;padding-left:5px">' +
+							     	'<input rows="1" class = "inputComment" cols="70" wrap="soft" id="TypeComment" value="" placeholder="Type your comment">' +
 	                    			'</input>' +
 	                    			'<img id = "picture" class = "icons" src="/Extensions/LetsComment/icons/picture.png">' + 
 	                    			'<img id = "send" class = "icons" src="/Extensions/LetsComment/icons/send.png">' + 
@@ -372,7 +385,7 @@ define( ["jquery",
 														}
 													vModalText += '</select><br>' +  
 													
-													'<textarea id = "specificPeopleArea" disabled="" class="expression-editor-function-definition lui-textarea lui-disabled ng-binding" style = "height:100px;width:300px;max-height: 200px">users</textarea>' +
+													'<textarea id = "specificPeopleArea" disabled="" class="expression-editor-function-definition lui-textarea lui-disabled ng-binding textAreaUsers">users</textarea>' +
 													'<br>' +
 
 													'<div>' +
@@ -410,9 +423,9 @@ define( ["jquery",
 										'</div>' +
 								 	'</div>' +
 									'<div class="modalPrivate-footer">' +
-									     '<span>'+									     	
-									     	'<button id = "sendPrivButton" class="lui-button confirm button ng-scope" style = "top:13px;left:390px" name="confirmButton" q-translation="Common.Apply">Apply</button>' +
-											'<button id = "escPrivButton" class="lui-button cancel button ng-scope" style = "top:13px;left:210px" name="cancelButton" q-translation="Common.Cancel">Cancel</button>' +
+									     '<span style="float:right">'+									     										     	
+											'<button id = "escPrivButton" class="lui-button cancel button ng-scope" style = "top:13px" name="cancelButton" q-translation="Common.Cancel">Cancel</button>' +
+											'<button id = "sendPrivButton" class="lui-button confirm button ng-scope" style = "top:13px;margin-left:20px" name="confirmButton" q-translation="Common.Apply">Apply</button>' +
 									     '</span>' +
 									'</div>' +
 																					 	
@@ -513,12 +526,7 @@ define( ["jquery",
 								vSendPriv.onclick = async function() {
 									var vUsersAlert  = document.getElementById("specificPeople").value;
 									var vGroupTxt  = document.getElementById("specificGroup").value;
-									//aqui
-									/*if(vGroupTxt.length > 0 && vUsersAlert.length > 0){
-										var vCheckGrAlert = await checkGrAlert();
-										console.log(vCheckGrAlert);
-									}*/
-
+									
 									var vUsersTxt  = document.getElementById("specificPeopleArea").value;									
 
 									if(vComboGr.selectedIndex == 0)	{	
@@ -723,7 +731,7 @@ define( ["jquery",
 									var theSel = document.getElementById("currentSel");						
 									theSel.innerHTML = '';
 									document.getElementById("TypeComment").value = '';
-									//currentSelections = '';							
+									//currentSelections = '';
 								}
 							}
 							
@@ -742,6 +750,9 @@ define( ["jquery",
 								}
 							 }
 							})
+							/*$("#TypeComment").on('click', async function (e) {
+								alert('Hola');
+							})*/
 
 							async function writeNewComment(time, user, comment, like, public, receivers) {											
 								var theSelReply = document.getElementById("replyDiv");										
@@ -777,7 +788,7 @@ define( ["jquery",
 										var vpublike = comment;										
 
 								      	if(like == '-##like2##-'){
-								      		vpublike = '<p><img id = "like" class = "icons" src="/Extensions/LetsComment/icons/like2.png" style = "height:50px"></p>'; 
+								      		vpublike = '<p><img id = "like" class = "icons" src="/Extensions/LetsComment/icons/like2.png" style = "width:50px"></p>'; 
 								      	}
 								      	if (public == 'unlocked'){
 								      		vpubcol = 'LetsComment-bullet-green-r';
@@ -804,16 +815,18 @@ define( ["jquery",
 								      	}
 										$("#box_" + currentObjectId).append(
 								      		'<div id = "div_' + vcode + '" class = "LetsComment-bullet ' + vpubcol + '">' +
-								      		'<div style = "padding-left:330px">' +
+								      		'<div style = "float:right">' +
 												'<img id = "' + vcode + '" class = "del" src="/Extensions/LetsComment/icons/del.png">' +							
 											'</div>' +
 											replyText +
-								      		'<p><strong>' + user + '</strong> ' + time + '<i>' + vLocked + '</i></p>' +
-								      		'<p id = "sel_' + vcode + '" class = "linkSel">' + currentSelections + '</p>' +
+								      		'<p><strong>' + user + '</strong><span style ="font-size:12px"> ' + time + '</span><i>' + vLocked + '</i></p>' +
+								      		'<p id = "sel_' + vcode + '" class = "newLinkSel">' + currentSelections + '</p>' +
 								      		vpubtxt +
 								      		'</div>'								      		
-										);
+										);										
 										currentSelections = '';
+										var theSel = document.getElementById("currentSel");						
+										theSel.innerHTML = '';
 										var objBox = document.getElementById("box_" + currentObjectId);
 										objBox.scrollTop = objBox.scrollHeight;
 										$('.del').click(function() {	
@@ -825,25 +838,26 @@ define( ["jquery",
 												$("#div_" + vcode).remove();													
 											}
 										})
-										$('.linkSel').click(async function() {		
+										$('.newLinkSel').click(async function() {													
 											if(vcode){
 												app.clearAll();
 												readref = {
 													"readRef": appId + '/' + currentObjectId	+ '/' + vcode
 												}
+												
 												var query = firebase.database().ref(readref.readRef);
 												query.once("value")
 							  					.then(function(snapshot) {
 							  						snapshot.child("fieldSel").forEach(function(selection){
 							  							var valor = selection.node_.children_.root_.value.value_;
-							  							var campo = '[' + selection.node_.children_.root_.key + ']';
-							  							
-							  							var matchStr = "=" + campo + " = '" + valor.split(',').join("' or [" + campo + "] = '") + "'";
-							  							
-							  							app.field(campo).selectMatch(matchStr)
-							  							app.field(campo).selectPossible()
+							  							var campo = selection.node_.children_.root_.key;
+							  							var matchStr = "=[" + campo + "] = '" + valor.split(',').join("' or [" + campo + "] = '") + "'";
+							  												    	
+													    app.field(campo).selectMatch(matchStr)
+							  							app.field(campo).selectPossible()	
+													    
 							  						})
-							  					})	
+							  					})							  					
 											}
 										})	
 										currentSelections = '';
@@ -935,7 +949,7 @@ define( ["jquery",
 								      	var l1 = '';			
 								      							      	
 								      	if (currentUser == childSnapshot.val().user){
-								      		vcodedel = '<div style = "padding-left:330px">' +
+								      		vcodedel = '<div style = "float:right">' +
 												'<img id = "' + key + '" name = "' + replyName + '" class = "del" src="/Extensions/LetsComment/icons/del.png">' +							
 											'</div>';
 								      		if (childSnapshot.val().public == 'unlocked'){										      			
@@ -967,7 +981,7 @@ define( ["jquery",
 								      	var vpublike = childSnapshot.val().comment;
 
 								      	if(childSnapshot.val().like == '-##like2##-'){
-								      		vpublike = '<p><img id = "like" class = "icons" src="/Extensions/LetsComment/icons/like2.png" style = "height:50px"></p>'; 
+								      		vpublike = '<p><img id = "like" class = "icons" src="/Extensions/LetsComment/icons/like2.png" style = "width:50px"></p>'; 
 								      	}
 								      	if (childSnapshot.val().public == 'unlocked'){	
 								      		vprivatxt = 'public';										      												      		
@@ -993,7 +1007,7 @@ define( ["jquery",
 									      		'<div id = "div_' + key + '" class = "LetsComment-bullet ' + l1 + '">' +
 									      		vcodedel + vreply +
 									      		replyText +
-									      		'<p><strong>' + childSnapshot.val().user + '</strong> ' + childSnapshot.val().time + '<i>' + vLocked + '</i></p>' +
+									      		'<p><strong>' + childSnapshot.val().user + '</strong><span style ="font-size:12px"> ' + childSnapshot.val().time + '</span><i>' + vLocked + '</i></p>' +
 									      		'<p id = "sel_' + key + '" class = "linkSel">' + childSnapshot.val().currentSel + '</p>' +
 									      		vpubtxt +
 									      		'</div>'
@@ -1069,7 +1083,6 @@ define( ["jquery",
 										theFocus.focus();
 									})
 									$('.linkSel').click(async function() {
-										
 										if(this.id.substring(4) && this.innerHTML.length>1){
 											app.clearAll();
 											readref = {
@@ -1077,18 +1090,18 @@ define( ["jquery",
 											}
 											var query = firebase.database().ref(readref.readRef);
 											query.once("value")
-							  					.then(function(snapshot) {
-							  						snapshot.child("fieldSel").forEach(function(selection){
-							  							var valor = selection.node_.children_.root_.value.value_;
-							  							var campo = selection.node_.children_.root_.key;
-							  							
-							  							var matchStr = "=[" + campo + "] = '" + valor.split(',').join("' or [" + campo + "] = '") + "'";
-							  							app.field(campo).selectMatch(matchStr)
-							  							app.field(campo).selectPossible()
-							  						})
-							  					})													
+						  					.then(function(snapshot) {
+						  						snapshot.child("fieldSel").forEach(function(selection){
+						  							var valor = selection.node_.children_.root_.value.value_;
+						  							var campo = selection.node_.children_.root_.key;						  							
+						  							var matchStr = "=[" + campo + "] = '" + valor.split(',').join("' or [" + campo + "] = '") + "'";
+									
+											    	app.field(campo).selectMatch(matchStr)
+						  							app.field(campo).selectPossible()
+						  						})
+						  					})													
 										}
-									})	
+									})
 								});										
 							}
 							function getCurrentSelections() {										
@@ -1105,25 +1118,7 @@ define( ["jquery",
 									});
 								});
 							}
-							/*async function checkGrAlert(){
-								$(".LetsComment-modalBase").append( dialogTemplate );
-								var vModalAlertGr = document.getElementById("groupAlert");									
-								var valertGrF  = document.getElementById("alertGrF");
-								var valertGrT  = document.getElementById("alertGrT");
-								vModalAlertGr.style.display = "block";
-								console.log('en')				
-								
-								valertGrF.onclick = async function(){
-									console.log('entro F')
-									$( "#groupAlert" ).remove();
-									return (false);
-								}
-								valertGrT.onclick = async function(){
-									console.log('entro T')
-									$( "#groupAlert" ).remove();											
-									return (true);
-								}
-							}*/
+							
 							function getCurrentValues(childResult) {										
 								
 								return new Promise(function (resolve, reject) {
@@ -1175,7 +1170,7 @@ define( ["jquery",
 								    mm = '0'+mm
 								} 
 								
-								today = mm + '-' + dd + '-' + yyyy + '-' + time;																												
+								today = yyyy + '-' + mm + '-' + dd + '-' + time;																												
 																	
 								ref = {
 									"writeRef": appId + '/' + currentObjectId + '/' + today											
