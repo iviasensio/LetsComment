@@ -30,9 +30,10 @@ Version 1 Issues:
 
 ### Version 3 (mar-19)
 
-3. Wrong field selections in some circumstances 
-   Responsive design
-   Wrong count about my available messages during the current month
+3. What's new:
+   - Wrong field selections in some circumstances 
+   - Responsive design
+   - Wrong count about my available messages during the current month
 
 
 
