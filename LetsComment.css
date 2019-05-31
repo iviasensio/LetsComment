@@ -23,15 +23,24 @@
 .LetsComment-tooltip-comments {
     position: absolute;
     text-align: center;
-    top: 2%;
-    margin-left: 70%;
+    right: 0;
+    bottom: 0;
+    margin-right: 1%;
+    margin-bottom: 1%;
 }
 .top-right {
     position: absolute;
     top: 6px;    
     color: white;
 }
-
+.red-circle{
+    /*background-color:red;*/
+    border-radius:50%;
+    right:0;
+    top:0;
+    font-size:15px;
+    width:20px;
+}
 .LetsComment-tooltip {
 	position: absolute;
 	top: 15%;
@@ -234,8 +243,11 @@
 }
 .box{
     height:380px;
-    overflow-y:auto;
+    overflow-y:hidden;
     overflow-x:hidden;
+}
+.box:hover{
+    overflow-y:scroll;
 }
 .LetsComment-modal-footer {
     padding: 2px 16px;
@@ -275,6 +287,7 @@
 .icons-comment{
     height:45px;
     padding-left:10px;    
+    cursor:pointer;
 }
 .del {
     /*position: absolute;*/

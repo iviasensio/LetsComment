@@ -36,6 +36,12 @@ Version 1 Issues:
    - Wrong count about my available messages during the current month
 
 
+### Version 4 (May-19)
+
+4. What's new:
+   - Compatible with QS April 2019
+   - Only one comment icon in each object
+   - New icons look
 
 ### Basic Guide
 ![alt tag](https://github.com/iviasensio/Guides/blob/master/LetsComment/ChatAccess.png)

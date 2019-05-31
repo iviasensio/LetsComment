@@ -31,10 +31,10 @@ var groupName = '';
 var vGroupOwner = '';
 var app;
 var appId;
+var enigma;
+var version;
+var oneOpened = false;
 
-//First:'https://www.gstatic.com/firebasejs/5.0.4/firebase'
-//let1: https://www.gstatic.com/firebasejs/5.5.6/firebase.js
-//let2: https://www.gstatic.com/firebasejs/5.5.6/firebase.js
 require.config({
 	paths: {
 		'firebase': 'https://www.gstatic.com/firebasejs/5.5.6/firebase'
@@ -46,7 +46,6 @@ define( ["jquery",
 		 "css!./LetsComment.css",
 		 'firebase',
 		 './config'
-		 //'text!./dialogTemplate.html'
 		 ],
 	
 	function (jquery,qlik,cssContent,firebase,configfile) {
@@ -54,7 +53,8 @@ define( ["jquery",
 			app = qlik.currApp(this);
 			appId = app.id;
 		}
-		var global = qlik.getGlobal(config);	
+		
+		var global = qlik.getGlobal(config);		
 		var urlPath = global.session.options.reloadURI;
 		var globalPath = urlPath.substring(0,urlPath.indexOf('/sense/'));
 
@@ -67,12 +67,14 @@ define( ["jquery",
 			vGroupOwner = currentUser;
 		});
 		
-		if($(".qui-buttonset-right").length == 1){
-			$(".qui-buttonset-right").prepend($("<button class='lui-button lui-button--toolbar iconToTheRight npsod-bar-btn lui-icon lui-icon--lightbulb'><span data-icon='toolbar-print'></span></button>"));
+		//version control coded by Riley MacDonald
+		if (parseInt(version) <= 122447){		
+			$(".qui-buttonset-right").prepend($("<button id = 'butLightBulb' class='lui-button lui-button--toolbar iconToTheRight npsod-bar-btn lui-icon lui-icon--lightbulb'><span data-icon='toolbar-print'></span></button>"));
 		}else{
-			$(".qs-toolbar__right").prepend($("<button class='lui-button qs-toolbar__element iconToTheRight npsod-bar-btn lui-icon lui-icon--lightbulb'><span data-icon='toolbar-print'></span></button>"));
+			$(".qs-toolbar__right").prepend($("<button id = 'butLightBulb' class='lui-button qs-toolbar__element iconToTheRight npsod-bar-btn lui-icon lui-icon--lightbulb'><span data-icon='toolbar-print'></span></button>"));
 		}
-		async function toggleId () {						
+		async function toggleId () {	
+						
 			if (!initFirebase) {
 				firebase = await firebase.initializeApp(config);
 				initFirebase = true;
@@ -93,15 +95,17 @@ define( ["jquery",
 			
 			var ancho = '130px';
 			var cnt = $( ".LetsComment-tooltip" ).remove();
-			if ( cnt.length === 0 ) {
+			
+			if ( cnt.length === 0) {
+				//var cnt = $( ".LetsComment-tooltip" ).remove();
 				$(".buttons-end").append( '<div class="LetsComment-tooltip" style = "float:left;position:relative;right:0%;padding: 12px 15px;">' +
 					'<a class="LetsComment-btn-sheet" style = "bottom:0px" title="properties"><i id = "flagId" class="lui-icon lui-icon--group">send</i></a>' +							
 					"</div>" );
 
-				$('.LetsComment-btn-sheet').click(function() {	
+				$('.LetsComment-btn-sheet').click(function() {
 					var x = document.getElementsByClassName("LetsComment-modalBase");
-    				if(x.length == 0){								    										
-						var sheet_id = qlik.navigation.getCurrentSheetId();						
+    				if(x.length == 0){
+						var sheet_id = qlik.navigation.getCurrentSheetId();
 						var loop = true;
 
 						$( '.sheet-grid' ).each( function (ih, elh ) {	
@@ -113,34 +117,21 @@ define( ["jquery",
 						})					
 					}
 				})
-                
-                $( '.qv-object,.qv-object-nav' ).each( function ( i, el ) {	
-					var s = angular.element( el ).scope();					
-					if (s.layout || (s.$$childHead && s.$$childHead.layout)) {
-							
-						if(arrayValidCharts.indexOf(s.model.layout.qInfo.qType) >= 0){
-							var layout = s.layout || s.$$childHead.layout, model = s.model || s.$$childHead.model;														
-							$(".qv-object").children("#commbut").remove();
-							$( el ).append('<a id = "commbut" ng-repeat="menuItem in navMenu.items" ng-if="menuItem.isVisible()" ng-class="[menuItem.cssClasses, menuItem.dynamicCssClasses()]" class="ng-scope lui-icon lui-icon--group white border flagClass" title="Lets Comment"></a>');
-							
-						}
-						
-						$( el ).find('.lui-icon--group').on('click', function () {
-							var x = document.getElementsByClassName("LetsComment-modalBase");
-    						if(x.length == 0){
-								onceQlik(model)
-    						}
-						})
-					} 
-				});
+                                
 				$( '.qv-object,.qv-panel-sheet' ).each( async function ( i, pl ) {
 					var s = angular.element( pl ).scope();					
 					if (s.layout || (s.$$childHead && s.$$childHead.layout)) {						
 						if(arrayValidCharts.indexOf(s.model.layout.qInfo.qType) >= 0){
 							var dlayoutId = s.layout.qInfo.qId;				
-							$( pl ).append('<div id = "messageId" class="LetsComment-tooltip-comments"><img title = "Current month messages" class = "icons-comment" src="/Extensions/LetsComment/icons/messge.png"><div id = "totalMessages_' + dlayoutId + '" class = "top-right">0</div></div>');
+							$( pl ).append('<div id = "messageId" class="LetsComment-tooltip-comments"><img title = "Current month messages" class = "icons-comment" src="/Extensions/LetsComment/icons/messge.png"><div id = "totalMessages_' + dlayoutId + '" class = "top-right red-circle">0</div></div>');
 							lastTen = await read10dayComments(dlayoutId);							
-						}																		
+							$(this).on('click', function(){
+								if(!oneOpened){
+									onceQlik(s.model);							
+								}
+							})	
+						}
+										
 					} 
 				});
 				async function read10dayComments(dlayoutId){
@@ -190,32 +181,25 @@ define( ["jquery",
 						    var elemId = "totalMessages_" + dlayoutId;
 						    var rightMargin = '';
 						    var fontSize = '';
-						    if(hmm < 10){
-						    	rightMargin = '8px';
-						    	fontSize = '12px';
-						    }else{
-						    	if(hmm < 100 || hmm > 999){
-						    		rightMargin = '4px';
-						    		fontSize = '12px';
-						    	}else{
-						    		rightMargin = '3px';
-						    		fontSize = '10px';
-						    	}
-						    }
+						    var back_Msg_Color = 'red';
+				
 						    if(hmm > 999){
 						    	hmm = '1k';
+						    }
+						    if(hmm == 0){
+						    	back_Msg_Color = '#ccc'
 						    }
 						    
 						    var div10 = document.getElementById(elemId);
 						    if(div10){
 						    	div10.innerHTML  = hmm;
-						    	div10.style.right = rightMargin;
-						    	div10.style.fontSize = fontSize;
+						    	div10.style.background = back_Msg_Color;
 						    }
 						})
 						
 				}
 				function onceQlik(model){
+					oneOpened = true;
 					model.getProperties().then( function ( reply ) {						
 						if(!app){
 							app = qlik.currApp(this);
@@ -255,13 +239,9 @@ define( ["jquery",
 							  '<div class="LetsComment-modal-header">' +
 							    '<span>' + vHeaderTitle + '</span>'+
 
-							    /*<a ng-if="!item.qLocked &amp;&amp; !item.isPlaceHolder &amp;&amp; !item.qOneAndOnlyOne" ng-click="clear(item.qField, item.stateName)" class="remove ng-scope" q-title-translation="CurrentSelections.Remove" title="Borrar selección">
-									<span class="lui-clear-all lui-icon lui-icon--remove"></span>
-								</a>*/
 								'<a>' +
-									'<span id = "baseModalClose" class="lui-clear-all lui-icon lui-icon--remove close"></span>' +
+									'<span id = "baseModalClose" name = "' + modalName + '" class="lui-clear-all lui-icon lui-icon--remove close"></span>' +
 								'</a>' +
-							    /*'<span id = "baseModalClose" class="close"> x </span>' +*/
 							      	'<input id = "searchText" type="text" style = "padding-left:5px;border-radius: 10px;margin-top: 10px;width: 165px;float: right;" placeholder="Search text">' + 										
 							  '</div>' +
 							  '<div class="LetsComment-modal-body" style = "background-color: ' + vBackgroundColor + '">' +
@@ -324,8 +304,10 @@ define( ["jquery",
 								    }
 								}								
 							}
-							spanBase.onclick = async function() {																	
-								$( modalName2 ).remove();
+							spanBase.onclick = async function() {
+								var parName = '#' +spanBase.getAttribute('name');
+								$( parName ).remove();
+								oneOpened = false;
 								
 								//Refresh the list of current month messages
 								$( '.qv-object,.qv-panel-sheet' ).each( async function ( i, pl ) {
@@ -838,7 +820,8 @@ define( ["jquery",
 												$("#div_" + vcode).remove();													
 											}
 										})
-										$('.newLinkSel').click(async function() {													
+										$('.newLinkSel').click(async function() {
+											
 											if(vcode){
 												app.clearAll();
 												readref = {
@@ -894,8 +877,8 @@ define( ["jquery",
 								      	currentGroupsReceiv.push(childSnapshot.val().members);
 								      	currentGroupsOwners.push(childSnapshot.val().owner);
 								    })
-								})	
-							} 	
+								})
+							}
 							
 							async function readAllComments() {			
 								commentsArray = [];										
@@ -1083,6 +1066,7 @@ define( ["jquery",
 										theFocus.focus();
 									})
 									$('.linkSel').click(async function() {
+
 										if(this.id.substring(4) && this.innerHTML.length>1){
 											app.clearAll();
 											readref = {
@@ -1189,7 +1173,13 @@ define( ["jquery",
 				showTitles: false
 			}, 			
 			paint: async function ( $element ) {				
-
+				if($("#butLightBulb").length == 0){
+					if (parseInt(version) <= 122447){
+						$(".qui-buttonset-right").prepend($("<button id = 'butLightBulb' class='lui-button lui-button--toolbar iconToTheRight npsod-bar-btn lui-icon lui-icon--lightbulb'><span data-icon='toolbar-print'></span></button>"));
+					}else{
+						$(".qs-toolbar__right").prepend($("<button id = 'butLightBulb' class='lui-button qs-toolbar__element iconToTheRight npsod-bar-btn lui-icon lui-icon--lightbulb'><span data-icon='toolbar-print'></span></button>"));
+					}
+				}
 				if(!document.getElementById('flagId')){					
 					toggleId();
 				}			
