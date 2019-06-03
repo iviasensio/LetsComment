@@ -41,6 +41,7 @@ Version 1 Issues:
 4. What's new:
    - Compatible with QS April 2019
    - Only one comment icon in each object
+   - Alert las 30 days messages
    - New icons look
 
 ### Basic Guide

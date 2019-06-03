@@ -34,6 +34,7 @@ var appId;
 var enigma;
 var version;
 var oneOpened = false;
+var millisecToDays = 86400000;
 
 require.config({
 	paths: {
@@ -145,20 +146,15 @@ define( ["jquery",
 					  	.then(function(snapshot) {
 					  		var hmm = 0;
 					  		if(snapshot.node_.children_.root_.key){//if there are any comments in that chart						  		
-						  		var today = new Date();
-								var mm = today.getMonth()+1; //January is 0!													
-
-								if(mm<10) {
-								    mm = '0' + mm
-								} 
+						  		var today = new Date();							  		
+								var todayMilliSecs = today.getTime();								
 								
-							    snapshot.forEach(function(childSnapshot) {						    	
-							    	var datemonth = childSnapshot.key;
-							  		var datemonth2 = datemonth;
-							  		datemonth = datemonth.substring(5,7);
-							  		datemonth2 = datemonth2.substring(0,2);
+							    snapshot.forEach(function(childSnapshot) {	
+							    	var dateSaved = childSnapshot.key;
+							  		var dateMilli = dateSaved.substring(11,24);
+							  		var daysAgo = (todayMilliSecs / millisecToDays) - ( dateMilli / millisecToDays);
 
-							    	if(mm == datemonth || mm == datemonth2){
+							    	if(daysAgo <= 30){
 							    		var receiverMatch = false;
 							      		if(childSnapshot.val().public == 'group'){
 							      			var receiverLength = childSnapshot.val().receivers;
