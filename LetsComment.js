@@ -126,7 +126,7 @@ define( ["jquery",
 							var dlayoutId = s.layout.qInfo.qId;				
 							$( pl ).append('<div id = "messageId" class="LetsComment-tooltip-comments"><img title = "Current month messages" class = "icons-comment" src="/Extensions/LetsComment/icons/messge.png"><div id = "totalMessages_' + dlayoutId + '" class = "top-right red-circle">0</div></div>');
 							lastTen = await read10dayComments(dlayoutId);							
-							$(this).on('click', function(){
+							$(pl.children[2]).on('click', function(){
 								if(!oneOpened){
 									onceQlik(s.model);							
 								}
