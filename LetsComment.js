@@ -371,7 +371,9 @@ define( ["jquery",
 														'<div style = "margin-top: 5px">' +
 															'<div class="lui-input-group">' +
 																'<input id = "specificGroup" class="lui-input lui-input-group__item lui-input-group__input" type="text" placeholder="group name">' +
-																'<button id = "createNewGroup" class="lui-button lui-icon lui-icon--plus" type="button" ></button>' +																	
+																'<button id = "createNewGroup" class="lui-button lui-input-group__item  lui-input-group__button" type="button">' +
+																	'<span class="lui-button__icon  lui-icon  lui-icon--plus" q-title-translation="Tooltip.AddTag" title="Add tag"></span>' +
+																'</button>' +																	
 															'</div>' +
 														'</div>' +																													
 													'</div>' +
