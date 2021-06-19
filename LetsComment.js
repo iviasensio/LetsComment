@@ -53,6 +53,7 @@ define( ["jquery",
 		if(!app){
 			app = qlik.currApp(this);
 			appId = app.id;
+			appId = appId.replace('.','');//dots are not allowed
 		}
 		
 		var global = qlik.getGlobal(config);		
