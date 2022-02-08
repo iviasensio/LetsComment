@@ -45,9 +45,16 @@ Version 1 Issues:
    - New icons look
 
 ### Basic Guide
-![alt tag](https://github.com/iviasensio/Guides/blob/master/LetsComment/ChatAccess.png)
-![alt tag](https://github.com/iviasensio/Guides/blob/master/LetsComment/ChatOptions.png)
-![alt tag](https://github.com/iviasensio/Guides/blob/master/LetsComment/ChatSecurity.png)
+<a>
+	<img src="https://github.com/iviasensio/Guides/blob/master/LetsComment/ChatAccess.png" alt="Step 1" />
+</a>
+<a>
+	<img src="https://github.com/iviasensio/Guides/blob/master/LetsComment/ChatOptions.png" alt="Step 2" />
+</a>
+<a>
+	<img src="https://github.com/iviasensio/Guides/blob/master/LetsComment/ChatSecurity.png" alt="Step 3" />
+</a>
+
 
 This version works using a particular and public test instance of Firebase.
 Pease read the UserGuide.pdf file to start your own Firebase instance
